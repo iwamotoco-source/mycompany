@@ -3,7 +3,7 @@
 if(window.__ATELIER_DIRECT_LOADED__) return;
 window.__ATELIER_DIRECT_LOADED__=true;
 const KEY='atelier-one-theme';
-let mode=localStorage.getItem(KEY)||'dark';
+let mode='dark';try{mode=localStorage.getItem(KEY)||'dark'}catch{}
 function addStyle(){
   if(document.getElementById('atelier-direct-style')) return;
   const s=document.createElement('style');
@@ -28,7 +28,7 @@ function addStyle(){
   `;
   document.head.appendChild(s);
 }
-function applyTheme(next){mode=next;localStorage.setItem(KEY,mode);document.documentElement.dataset.atTheme=mode==='light'?'light':'dark';}
+function applyTheme(next){mode=next;try{localStorage.setItem(KEY,mode)}catch{}document.documentElement.dataset.atTheme=mode==='light'?'light':'dark';}
 function install(){
   const top=document.querySelector('.topbar');
   if(!top||document.getElementById('atelier-menu-btn')) return !!top;
