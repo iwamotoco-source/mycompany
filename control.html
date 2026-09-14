@@ -4,63 +4,91 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0f14">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Atelier One">
-<title>Atelier One</title>
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="./icon.svg">
+<title>Atelier One · GitHub同期設定</title>
 <style>
-:root{--bar:#0c1219;--bar-light:#fff;--text:#f5f7fa;--muted:#94a0ae;--line:#26313d;--blue:#0a84ff;--panel:#101821;--bg:#070b10;--danger:#ff453a;--ok:#30d158;--warn:#ff9f0a;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif}
-html[data-theme="light"]{--bar:#fff;--text:#1d1d1f;--muted:#6e6e73;--line:#d8d8dc;--blue:#0071e3;--panel:#fff;--bg:#f5f5f7}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text)}body{display:flex;flex-direction:column;min-height:100dvh}
-button,input,select,textarea{font:inherit}button{color:inherit;-webkit-tap-highlight-color:transparent}
-#shellBar{flex:0 0 auto;min-height:54px;padding:calc(7px + env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) 7px max(10px,env(safe-area-inset-left));display:flex;align-items:center;gap:10px;background:var(--bar);border-bottom:1px solid var(--line);z-index:3}
-.brand{min-width:0;display:flex;align-items:center;gap:10px;flex:1}.mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(180deg,#2997ff,#0071e3);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700}.brandText{min-width:0}.brandText strong{display:block;font-size:14px;line-height:1.15}.brandText span{display:block;font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.barActions{display:flex;align-items:center;gap:7px}.barBtn,#cloudFab{height:36px;border-radius:999px;border:1px solid var(--line);background:transparent;padding:0 12px;display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600}.barBtn.icon{width:36px;padding:0;justify-content:center}.dot{width:8px;height:8px;border-radius:50%;background:#7b8794}.barBtn.ok .dot,#cloudFab.ok .dot{background:var(--ok)}.barBtn.busy .dot,#cloudFab.busy .dot{background:var(--warn)}.barBtn.bad .dot,.barBtn.conflict .dot,#cloudFab.bad .dot,#cloudFab.conflict .dot{background:var(--danger)}
-#appFrame{display:block;flex:1 1 auto;min-height:0;width:100%;border:0;background:var(--bg)}
-#sheetBackdrop{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.38);opacity:0;pointer-events:none;transition:opacity .18s}#sheetBackdrop.open{opacity:1;pointer-events:auto}
-#cloudSheet{position:fixed;z-index:21;top:10px;right:10px;bottom:10px;width:min(500px,calc(100vw - 20px));background:var(--panel);border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.35);transform:translateX(calc(100% + 20px));transition:transform .2s ease;display:flex;flex-direction:column;overflow:hidden}#cloudSheet.open{transform:none}
-.sheetHead{padding:16px 16px 10px;border-bottom:1px solid var(--line)}.headTop{display:flex;align-items:center;justify-content:space-between;gap:12px}.sheetHead h1{font-size:18px;margin:0}.sheetHead p{font-size:11px;color:var(--muted);margin:3px 0 0}.iconBtn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:transparent}
-.tabs{display:flex;gap:8px;overflow:auto;padding-top:12px}.tab{border:1px solid transparent;border-radius:999px;padding:8px 12px;background:transparent;color:var(--muted);white-space:nowrap;font-size:12px;font-weight:600}.tab.active{background:var(--blue);color:#fff}
-#sheetBody{overflow:auto;padding:14px 16px calc(18px + env(safe-area-inset-bottom))}.pane{display:none}.pane.active{display:block}.card{border:1px solid var(--line);border-radius:18px;padding:15px;margin-bottom:12px;background:var(--panel)}.card h2{font-size:15px;margin:0 0 10px}.card p,.help{font-size:12px;line-height:1.55;color:var(--muted)}
-.statusBox{display:flex;gap:10px;padding:12px;border:1px solid var(--line);border-radius:14px;margin-bottom:10px}.statusDot{width:9px;height:9px;border-radius:50%;background:#7b8794;margin-top:4px}.statusBox.ok .statusDot{background:var(--ok)}.statusBox.busy .statusDot{background:var(--warn)}.statusBox.bad .statusDot,.statusBox.conflict .statusDot{background:var(--danger)}.statusBox strong{display:block;font-size:12px}.statusBox small{display:block;font-size:10px;color:var(--muted);margin-top:3px}
-label{display:grid;gap:6px;font-size:11px;color:var(--muted);margin-top:10px}input,select,textarea{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:12px;padding:10px 12px;outline:none}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.check{display:flex;align-items:center;gap:8px}.check input{width:auto}.btnRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}button.action,a.action{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:999px;padding:9px 12px;font-size:12px;font-weight:600;text-decoration:none}.action.primary{background:var(--blue);border-color:var(--blue);color:#fff}.action.warn{color:var(--danger)}.metaGrid{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;font-size:11px}.metaGrid span:nth-child(odd){color:var(--muted)}
-#conflictBar{display:none;border:1px solid #7a3535;background:#2b1717;border-radius:14px;padding:12px;margin-bottom:10px}#conflictBar.show{display:block}
-.themeOptions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.themeCard{border:1px solid var(--line);border-radius:14px;padding:12px;background:transparent;text-align:left}.themeCard.active{border-color:var(--blue)}.themeCard strong,.themeCard small{display:block}.themeCard small{color:var(--muted);margin-top:3px}.themePreview{height:28px;border-radius:8px;margin-bottom:8px;background:linear-gradient(90deg,#0b0f14 0 33%,#f5f5f7 33% 66%,#0071e3 66%)}
-.libraryToolbar{display:grid;grid-template-columns:1fr auto;gap:8px}.libraryList{display:grid;gap:8px;margin-top:12px}.assetCard{display:grid;grid-template-columns:1fr auto;gap:8px;padding:12px;border:1px solid var(--line);border-radius:14px}.assetMeta strong{display:block;font-size:12px}.assetMeta small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.emptyState{padding:18px;border:1px dashed var(--line);border-radius:14px;text-align:center;color:var(--muted);font-size:12px}
-#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));z-index:22;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:var(--panel);border:1px solid var(--line);padding:10px 13px;border-radius:12px;font-size:12px;box-shadow:0 12px 35px rgba(0,0,0,.3);transition:.18s}#toast.show{opacity:1;transform:translate(-50%,0)}
-@media(max-width:640px){#shellBar{min-height:50px}.brandText span{display:none}.barBtn,#cloudFab{padding:0 10px}.barBtn .syncLabel{display:none}#cloudSheet{left:8px;right:8px;top:auto;bottom:8px;width:auto;max-height:min(82dvh,760px);border-radius:24px;transform:translateY(calc(100% + 16px))}#cloudSheet.open{transform:none}.row,.themeOptions,.libraryToolbar{grid-template-columns:1fr}.sheetHead{padding-top:14px}}
+:root{color-scheme:dark;--bg:#070b10;--panel:#101821;--panel2:#0c131b;--text:#f5f7fa;--muted:#98a4b3;--line:#26313d;--blue:#0a84ff;--green:#30d158;--red:#ff453a;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text)}body{padding:calc(18px + env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) calc(28px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+.wrap{max-width:720px;margin:0 auto}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(180deg,#2997ff,#0071e3);display:grid;place-items:center;font-weight:800;color:#fff}.brand h1{font-size:20px;margin:0}.brand p{font-size:12px;color:var(--muted);margin:3px 0 0}.back{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:999px;padding:10px 14px;text-decoration:none;font-weight:600;font-size:13px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:18px;margin:14px 0}.card h2{font-size:16px;margin:0 0 6px}.card p{font-size:12px;line-height:1.55;color:var(--muted);margin:0 0 14px}.status{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:var(--panel2);border:1px solid var(--line);border-radius:14px;margin-bottom:14px}.dot{width:9px;height:9px;border-radius:999px;background:#7b8794;margin-top:4px}.status.ok .dot{background:var(--green)}.status.bad .dot{background:var(--red)}.status strong{display:block;font-size:13px}.status small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+label{display:grid;gap:7px;font-size:12px;color:var(--muted);margin-top:12px}input{width:100%;border:1px solid var(--line);background:#091019;color:var(--text);border-radius:14px;padding:13px 14px;font-size:16px;outline:none}input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(10,132,255,.15)}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn{border:1px solid var(--line);background:transparent;color:var(--text);border-radius:999px;padding:11px 15px;font-weight:700;font-size:13px}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn.danger{color:var(--red)}.meta{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;font-size:12px}.meta span:nth-child(odd){color:var(--muted)}.meta span:nth-child(even){overflow-wrap:anywhere}.hint{font-size:11px;color:var(--muted);margin-top:10px}.hidden{display:none!important}
+@media(max-width:620px){.row{grid-template-columns:1fr}.top{align-items:flex-start}.brand h1{font-size:18px}.back{padding:9px 12px}}
 </style>
 </head>
 <body>
-<header id="shellBar">
-  <div class="brand"><div class="mark">A1</div><div class="brandText"><strong>Atelier One</strong><span>MY COMPANY workspace</span></div></div>
-  <div class="barActions">
-    <button id="themeQuick" class="barBtn icon" aria-label="テーマ切り替え">◐</button>
-    <button id="cloudFab" class="barBtn" aria-label="同期センター"><span class="dot"></span><span class="syncLabel" id="fabText">SYNC</span></button>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><div class="mark">A1</div><div><h1>GitHub / Gist 同期設定</h1><p>Atelier One · MY COMPANY</p></div></div>
+    <a class="back" href="./app.html?direct=1">MY COMPANYへ戻る</a>
   </div>
-</header>
-<iframe id="appFrame" src="./app.html?hotfix=2" title="Atelier One"></iframe>
-<div id="sheetBackdrop"></div>
-<aside id="cloudSheet" aria-hidden="true">
-  <div class="sheetHead">
-    <div class="headTop"><div><h1>Atelier One</h1><p>同期・GitHub・ライブラリ・設定</p></div><button id="closeSheet" class="iconBtn" type="button">×</button></div>
-    <div class="tabs"><button class="tab active" data-pane="sync">同期</button><button class="tab" data-pane="github">GitHub</button><button class="tab" data-pane="library">ライブラリ</button><button class="tab" data-pane="system">設定</button></div>
-  </div>
-  <div id="sheetBody">
-    <section class="pane active" data-pane="sync">
-      <div class="card"><h2>Gist 同期</h2><div id="syncStatus" class="statusBox"><span class="statusDot"></span><div><strong>未設定</strong><small>Token と Gist を設定してください。</small></div></div><div id="conflictBar"><strong>同期競合を検出しました</strong><p>採用する側を選んでください。</p><div class="btnRow"><button class="action" id="useCloud">クラウド版</button><button class="action" id="useLocal">この端末</button></div></div><label>GitHub Token<input id="ghToken" type="password" autocomplete="off"></label><label>Gist ID<input id="gistId" type="text" autocomplete="off"></label><label>同期ファイル名<input id="gistFile" type="text" value="my-company-state.json"></label><div class="row"><label class="check"><input id="autoSync" type="checkbox" checked>変更後に自動同期</label><label class="check"><input id="autoPull" type="checkbox" checked>他端末の更新を自動取得</label></div><div class="btnRow"><button class="action primary" id="saveConnect">保存して接続</button><button class="action" id="createGist">Gistを新規作成</button><button class="action" id="syncNow">今すぐ同期</button></div><div class="btnRow"><button class="action" id="pushNow">端末 → Cloud</button><button class="action" id="pullNow">Cloud → 端末</button><button class="action" id="openGist">Gistを開く</button></div></div>
-      <div class="card"><h2>同期情報</h2><div class="metaGrid"><span>端末ID</span><span id="deviceIdText">-</span><span>Revision</span><span id="localRevision">-</span><span>最終同期</span><span id="lastSync">-</span><span>クラウド保存</span><span id="cloudSaved">-</span><span>データサイズ</span><span id="stateSize">-</span></div></div>
-    </section>
-    <section class="pane" data-pane="github"><div class="card"><h2>制作プロジェクト → GitHub</h2><label>プロジェクト<select id="projectSelect"><option value="">読み込み中…</option></select></label><div class="row"><label>Owner<input id="repoOwner" value="iwamotoco-source"></label><label>Repository<input id="repoName" list="repoList"></label></div><datalist id="repoList"></datalist><label>Branch<input id="repoBranch" value="main"></label><label>Commit message<input id="commitMessage" value="Update from Atelier One"></label><div class="btnRow"><button class="action" id="loadRepos">Repo一覧</button><button class="action primary" id="publishSources">制作ソースを反映</button></div><div class="btnRow"><button class="action" id="openRepo">Repoを開く</button><button class="action" id="ensurePages">Pages確認</button><button class="action" id="openPages">公開ページ</button></div><p id="publishInfo" class="help">プロジェクトを選択してください。</p></div><div class="card"><button class="action" id="saveRepoLink">このリンク先を保存</button></div></section>
-    <section class="pane" data-pane="library"><div class="card"><h2>ツール / 素材ライブラリ</h2><div class="libraryToolbar"><input id="librarySearch" type="search" placeholder="ファイル名で検索"><button class="action" id="refreshLibrary">再読込</button></div><div class="btnRow"><button class="action" id="filterAll">すべて</button><button class="action" id="filterTools">ツール</button><button class="action" id="filterMedia">素材</button></div><p id="libraryStats" class="help">読み込み中…</p><div id="libraryList" class="libraryList"></div></div></section>
-    <section class="pane" data-pane="system"><div class="card"><h2>テーマ</h2><div class="themeOptions"><button class="themeCard" data-theme-choice="dark"><div class="themePreview"></div><strong>ダーク</strong><small>暗色</small></button><button class="themeCard" data-theme-choice="light"><div class="themePreview"></div><strong>ホワイト</strong><small>明色</small></button><button class="themeCard" data-theme-choice="system"><div class="themePreview"></div><strong>自動</strong><small>端末に追従</small></button></div></div><div class="card"><h2>PWA / オフライン</h2><div id="pwaStatus" class="statusBox"><span class="statusDot"></span><div><strong>確認中</strong><small>Service Workerを確認します。</small></div></div><div class="btnRow"><button class="action" id="installPwa">ホーム画面への追加方法</button><button class="action" id="refreshApp">最新版を再読込</button></div></div><div class="card"><h2>バックアップ</h2><div class="btnRow"><button class="action" id="exportJson">JSON保存</button><button class="action" id="importJsonBtn">JSON復元</button><input id="importJson" type="file" accept="application/json,.json" hidden></div></div><div class="card"><button class="action warn" id="forgetToken">GitHub Tokenを消去</button></div></section>
-  </div>
-</aside>
-<div id="toast"></div>
-<script src="./sync.js?v=hotfix4"></script>
-<script src="./atelier.js?v=hotfix2"></script>
+
+  <section class="card">
+    <h2>Gist同期</h2>
+    <p>GitHub Token と Gist ID をこの端末に保存します。Token はGist本文へ保存しません。</p>
+    <div id="status" class="status"><span class="dot"></span><div><strong>未設定</strong><small>下の2項目を入力してください。</small></div></div>
+
+    <label>GitHub Token
+      <input id="token" type="password" autocomplete="off" placeholder="ghp_... / github_pat_...">
+    </label>
+    <label>Gist ID
+      <input id="gistId" type="text" autocomplete="off" placeholder="Gist URLの最後の英数字">
+    </label>
+    <label>同期ファイル名
+      <input id="gistFile" type="text" value="my-company-state.json">
+    </label>
+
+    <div class="buttons">
+      <button class="btn primary" id="save">保存して接続テスト</button>
+      <button class="btn" id="create">Gistを新規作成</button>
+      <button class="btn" id="open">Gistを開く</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>同期操作</h2>
+    <p>現在のMY COMPANYデータをGistへ保存、またはGistからこの端末へ復元します。</p>
+    <div class="buttons">
+      <button class="btn primary" id="push">この端末 → Cloud</button>
+      <button class="btn" id="pull">Cloud → この端末</button>
+    </div>
+    <div class="meta" style="margin-top:16px">
+      <span>端末ID</span><span id="device">-</span>
+      <span>Gist ID</span><span id="gistText">-</span>
+      <span>最終同期</span><span id="lastSync">-</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>安全設定</h2>
+    <div class="buttons"><button class="btn danger" id="forget">この端末のGitHub Tokenを消去</button></div>
+  </section>
+</div>
+<script>
+(()=>{
+'use strict';
+const CFG='my-company-cloud-sync-v3', DB='my-company-portable-v1', STORE='state', KEY='company';
+const $=id=>document.getElementById(id);
+let cfg={token:'',gistId:'',gistFile:'my-company-state.json',deviceId:'',lastSyncAt:'',...safeParse(localStorage.getItem(CFG)||'{}')};
+if(!cfg.deviceId) cfg.deviceId='dev-'+((crypto.randomUUID&&crypto.randomUUID())||Math.random().toString(36).slice(2)).slice(0,8);
+function safeParse(s){try{return JSON.parse(s)}catch{return {}}}
+function saveCfg(){localStorage.setItem(CFG,JSON.stringify(cfg));render();}
+function render(){ $('token').value=cfg.token||''; $('gistId').value=cfg.gistId||''; $('gistFile').value=cfg.gistFile||'my-company-state.json'; $('device').textContent=cfg.deviceId||'-'; $('gistText').textContent=cfg.gistId||'-'; $('lastSync').textContent=cfg.lastSyncAt?new Date(cfg.lastSyncAt).toLocaleString('ja-JP'):'-'; }
+function setStatus(type,title,detail){const el=$('status');el.className='status '+(type||'');el.querySelector('strong').textContent=title;el.querySelector('small').textContent=detail||''}
+function readUi(){cfg.token=$('token').value.trim();cfg.gistId=$('gistId').value.trim();cfg.gistFile=$('gistFile').value.trim()||'my-company-state.json';saveCfg()}
+function headers(json=false){if(!cfg.token)throw new Error('GitHub Tokenを入力してください');const h={Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28',Authorization:'Bearer '+cfg.token};if(json)h['Content-Type']='application/json';return h}
+async function gh(url,opt={}){const r=await fetch(url,{...opt,headers:{...headers(!!opt.body),...(opt.headers||{})}});const t=await r.text();let d=t;try{d=t?JSON.parse(t):null}catch{}if(!r.ok)throw new Error(d&&d.message?d.message:'GitHub API '+r.status);return d}
+async function db(){return await new Promise((resolve,reject)=>{const q=indexedDB.open(DB,1);q.onupgradeneeded=()=>{if(!q.result.objectStoreNames.contains(STORE))q.result.createObjectStore(STORE)};q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error)})}
+async function readState(){const d=await db();return await new Promise((resolve,reject)=>{const tx=d.transaction(STORE,'readonly'),q=tx.objectStore(STORE).get(KEY);q.onsuccess=()=>resolve(q.result||{revision:0,projects:[],tasks:[],records:[],assets:[],notes:[],audit:[]});q.onerror=()=>reject(q.error)})}
+async function writeState(state){const d=await db();await new Promise((resolve,reject)=>{const tx=d.transaction(STORE,'readwrite');tx.objectStore(STORE).put(state,KEY);tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
+async function digest(text){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));return [...new Uint8Array(b)].map(v=>v.toString(16).padStart(2,'0')).join('')}
+async function payload(){const state=await readState(),txt=JSON.stringify(state);return {format:'my-company-cloud',version:2,savedAt:new Date().toISOString(),deviceId:cfg.deviceId,revision:Number(state.revision||0),sha256:await digest(txt),state}}
+async function test(){readUi();if(!cfg.gistId)throw new Error('Gist IDを入力してください');await gh('https://api.github.com/gists/'+encodeURIComponent(cfg.gistId));cfg.lastSyncAt=new Date().toISOString();saveCfg();setStatus('ok','接続成功','GitHub Token と Gist ID を確認できました。')}
+async function create(){readUi();const p=await payload();const d=await gh('https://api.github.com/gists',{method:'POST',body:JSON.stringify({description:'Atelier One / MY COMPANY Sync',public:true,files:{[cfg.gistFile]:{content:JSON.stringify(p)}}})});cfg.gistId=d.id;cfg.lastSyncAt=new Date().toISOString();saveCfg();setStatus('ok','Gistを作成しました','Gist IDをこの端末に保存しました。')}
+async function push(){readUi();if(!cfg.gistId)throw new Error('Gist IDを入力してください');const p=await payload();await gh('https://api.github.com/gists/'+encodeURIComponent(cfg.gistId),{method:'PATCH',body:JSON.stringify({files:{[cfg.gistFile]:{content:JSON.stringify(p)}}})});cfg.lastSyncAt=new Date().toISOString();saveCfg();setStatus('ok','同期完了','この端末のデータをGistへ保存しました。')}
+async function pull(){readUi();if(!cfg.gistId)throw new Error('Gist IDを入力してください');const d=await gh('https://api.github.com/gists/'+encodeURIComponent(cfg.gistId));const f=d.files&&d.files[cfg.gistFile];if(!f)throw new Error('同期ファイルがGist内にありません');let text=f.content||'';if(f.truncated&&f.raw_url){const r=await fetch(f.raw_url,{headers:headers(false)});text=await r.text()}const p=JSON.parse(text);if(!p.state)throw new Error('MY COMPANY同期データではありません');await writeState(p.state);cfg.lastSyncAt=new Date().toISOString();saveCfg();setStatus('ok','復元完了','クラウドデータをこの端末へ反映しました。')}
+async function run(fn){try{setStatus('','処理中','しばらくお待ちください。');await fn()}catch(e){setStatus('bad','エラー',e.message||String(e))}}
+$('save').onclick=()=>run(test);$('create').onclick=()=>run(create);$('push').onclick=()=>run(push);$('pull').onclick=()=>run(pull);$('open').onclick=()=>{readUi();if(cfg.gistId)window.open('https://gist.github.com/'+cfg.gistId,'_blank','noopener');else setStatus('bad','未設定','Gist IDを入力してください。')};$('forget').onclick=()=>{cfg.token='';saveCfg();setStatus('','Tokenを消去しました','MY COMPANYデータは消えていません。')};
+render(); if(cfg.token&&cfg.gistId)setStatus('ok','設定済み','接続テストを実行できます。');
+})();
+</script>
 </body>
 </html>
