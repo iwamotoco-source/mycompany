@@ -38,7 +38,7 @@ function install(){
   top.appendChild(btn);
   const menu=document.createElement('div');
   menu.id='atelier-menu';
-  menu.innerHTML='<div class="sheet"><h3>Atelier One</h3><a href="./control.html">同期・ライブラリ・GitHub</a><button type="button" data-theme="dark"><span>ダークテーマ</span><span>●</span></button><button type="button" data-theme="light"><span>ホワイトテーマ</span><span>○</span></button><button type="button" class="close">閉じる</button></div>';
+  menu.innerHTML='<div class="sheet"><h3>Atelier One</h3><a href="./control.html?v=sync2">GitHub / Gist 同期設定</a><button type="button" data-theme="dark"><span>ダークテーマ</span><span>●</span></button><button type="button" data-theme="light"><span>ホワイトテーマ</span><span>○</span></button><button type="button" class="close">閉じる</button></div>';
   document.body.appendChild(menu);
   btn.addEventListener('click',()=>menu.classList.add('open'));
   menu.addEventListener('click',e=>{if(e.target===menu||e.target.closest('.close'))menu.classList.remove('open');const t=e.target.closest('[data-theme]');if(t){applyTheme(t.dataset.theme);menu.classList.remove('open');}});
