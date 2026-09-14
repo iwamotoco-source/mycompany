@@ -1,5 +1,5 @@
-const CACHE='atelier-one-shell-v1';
-const CORE=['./','./index.html','./app.html','./sync.js','./manifest.webmanifest','./icon-512.jpg','./apple-touch-icon.jpg'];
+const CACHE='atelier-one-shell-v2';
+const CORE=['./','./index.html','./app.html','./sync.js','./atelier.js','./manifest.webmanifest','./icon-512.jpg','./apple-touch-icon.jpg'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).catch(()=>{}))});
 self.addEventListener('activate',e=>{e.waitUntil(Promise.all([caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))),self.clients.claim()]))});
 self.addEventListener('fetch',e=>{
