@@ -10,10 +10,29 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./apple-touch-icon.jpg">
 <title>Atelier One</title>
-<meta http-equiv="refresh" content="0;url=./app.html?direct=1">
+<style>
+html,body{margin:0;min-height:100%;background:#090f17;color:#e9eff6;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif}
+body{display:grid;place-items:center;min-height:100dvh}.boot{padding:28px;text-align:center}.boot strong{display:block;font-size:17px}.boot span{display:block;margin-top:8px;color:#8fa0b2;font-size:13px}.dot{display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;background:#0a84ff;animation:p 1s infinite alternate}@keyframes p{to{opacity:.25}}
+</style>
 </head>
-<body style="margin:0;background:#090f17;color:#e9eff6;font-family:-apple-system,BlinkMacSystemFont,sans-serif">
-<script>location.replace('./app.html?direct=1');</script>
-<noscript><a href="./app.html?direct=1">MY COMPANYを開く</a></noscript>
+<body>
+<div class="boot"><strong><i class="dot"></i>MY COMPANYを準備しています</strong><span>旧キャッシュを安全に解除しています…</span></div>
+<script>
+(async()=>{
+  try{
+    if('serviceWorker' in navigator){
+      const regs=await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r=>r.unregister()));
+    }
+    if('caches' in window){
+      const keys=await caches.keys();
+      await Promise.all(keys.map(k=>caches.delete(k)));
+    }
+  }catch(_){ }
+  await new Promise(r=>setTimeout(r,120));
+  location.replace('./app.html?stable=20260914-2150');
+})();
+</script>
+<noscript><a href="./app.html?stable=20260914-2150">MY COMPANYを開く</a></noscript>
 </body>
 </html>
