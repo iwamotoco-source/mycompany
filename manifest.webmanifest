@@ -2,7 +2,7 @@
   "name":"Atelier One",
   "short_name":"Atelier One",
   "description":"ゲーム制作・AI・GitHub連携・ツールライブラリを統合する個人制作ワークスペース",
-  "start_url":"./index.html?pwa=stable-20260914",
+  "start_url":"./index.html?pwa=stable2",
   "scope":"./",
   "display":"standalone",
   "background_color":"#090f17",
